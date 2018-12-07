@@ -1,0 +1,6 @@
+.planet-container {
+  padding-top: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}

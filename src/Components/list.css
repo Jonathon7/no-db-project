@@ -1,0 +1,14 @@
+.list-container {
+  height: 375px;
+  width: 300px;
+  text-align: center;
+  border: solid 1px black;
+}
+
+.shown {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
