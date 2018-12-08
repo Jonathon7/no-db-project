@@ -5,7 +5,7 @@ import Planets from "./Components/Planets";
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
         <Planets />
       </div>
     );
