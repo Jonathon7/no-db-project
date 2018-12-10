@@ -1,10 +1,9 @@
 const axios = require("axios");
 
 var facts = [];
-let count = 0;
 
 const create = (req, res, next) => {
-  facts.push(req.body);
+  facts.unshift(req.body);
   res.send(facts);
 };
 

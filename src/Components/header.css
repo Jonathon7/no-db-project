@@ -1,8 +1,8 @@
 .header-container {
   height: 45vh;
   text-align: center;
-  padding-top: 0%;
   line-height: 3;
+  font-family: "Raleway";
 }
 
 .header-container h1 {

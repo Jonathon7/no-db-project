@@ -4,6 +4,8 @@ import List from "./List";
 import "./planet.css";
 import Navigation from "./Navigation";
 import Header from "./Header";
+import Loading from "./Loading";
+import Buttons from "./Buttons";
 import "react-toastify/dist/ReactToastify.min.css";
 import { ToastContainer, toast } from "../../node_modules/react-toastify";
 
@@ -34,11 +36,12 @@ export default class Planets extends Component {
       )
       .catch(err => console.log(err));
   }
-
+  ////TOAST NOTIFICATION WHEN A PLANET IS ADDED
   notify = () => {
     toast.info("Planet Added!");
   };
 
+  ////ADDS A NEW PLANET TO THE BEGINNING OF THE FACTS ARRAY
   addPlanet = () => {
     axios
       .post("http://localhost:3002/api/exoplanets/", {
@@ -50,6 +53,7 @@ export default class Planets extends Component {
       })
       .then(res =>
         this.setState({
+          ////VALUES ADD TO THE FACTS ARRAY AND RESETS INPUTS ON ADD PLANET FORM
           facts: res.data,
           name: "",
           star: "",
@@ -62,24 +66,26 @@ export default class Planets extends Component {
     this.notify();
   };
 
+  ////TOGGLES THE ADD VALUE IN STATE FOR THE DROPDOWN IN THE NAV COMPONENT TO ADD A PLANET
   handleAdd = () => {
     this.setState({
       add: !this.state.add
     });
   };
 
+  ////REMOVES PLANETS FROM THE FACTS ARRAY
   removePlanet = id => {
     axios
       .delete(`http://localhost:3002/api/exoplanets/${id}`)
       .then(res =>
         this.setState({
-          facts: res.data,
-          delete: !this.state.delete
+          facts: res.data
         })
       )
       .catch(err => console.log(err));
   };
 
+  ////UPDATES THE PLANET'S NAME
   updatePlanet = id => {
     const { newName } = this.state;
     axios
@@ -93,12 +99,7 @@ export default class Planets extends Component {
       .catch(err => console.log(err));
   };
 
-  handleUpdate = () => {
-    this.setState({
-      update: !this.state.update
-    });
-  };
-
+  ////KEEPS TRACK OF THE NEW NAME OF THE PLANET IN STATE
   handleChange = val => {
     this.setState({
       newName: val
@@ -131,11 +132,66 @@ export default class Planets extends Component {
     });
   };
 
+  ////SORTS THE ARRAY WITH BUTTONS.JS
+
+  sortByOrbit = () => {
+    let sortByOrbit = this.state.facts.sort(function(a, b) {
+      if (a.orbital_period && b.orbital_period) {
+        return a.orbital_period.value - b.orbital_period.value;
+      }
+    });
+
+    this.setState({
+      facts: sortByOrbit
+    });
+  };
+
+  sortByMass = () => {
+    let sortByMass = this.state.facts.sort(function(a, b) {
+      if (a.mass && b.mass) {
+        return a.mass.value - b.mass.value;
+      }
+    });
+    this.setState({
+      facts: sortByMass
+    });
+  };
+
+  sortByName = () => {
+    let sortByName = this.state.facts.sort(function(a, b) {
+      return a.id - b.id;
+    });
+    this.setState({
+      facts: sortByName
+    });
+  };
+
+  sortReverse = () => {
+    let sortReverse = this.state.facts.sort(function(a, b) {
+      return b.id - a.id;
+    });
+    this.setState({
+      facts: sortReverse
+    });
+  };
+
+  deleteAll = () => {
+    axios
+      .delete("http://localhost:3002/api/exoplanets/")
+      .then(res => {
+        this.setState({
+          facts: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
-    console.log(this.state);
     const { facts } = this.state;
 
-    let dispFacts = facts.slice(0, 20).map((fact, index) => {
+    let dispFacts = facts.slice(0, 18).map((fact, index) => {
       if (fact.mass) {
         var mass = fact.mass.value;
       }
@@ -184,6 +240,16 @@ export default class Planets extends Component {
           title="api.arcsecond.io"
           subTitle="Unified REST APIs for world-wide astronomy data!"
         />
+        {this.state.facts[0] ? (
+          <Buttons
+            sortByOrbit={this.sortByOrbit}
+            sortByMass={this.sortByMass}
+            sortByName={this.sortByName}
+            sortReverse={this.sortReverse}
+            deleteAll={this.deleteAll}
+          />
+        ) : null}
+        {!this.state.facts[0] ? <Loading /> : null}
         <div className="planet-container">{dispFacts}</div>
       </div>
     );

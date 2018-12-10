@@ -33,10 +33,13 @@ class List extends Component {
 
         <h2>Star: {this.props.star}</h2>
         <h2>Mass: {this.props.mass} * M_Jup</h2>
-        <h2>Orbital Period: {this.props.orbital} Days</h2>
+        <h2>
+          Orbit Period:
+          {this.props.orbital ? this.props.orbital + "Days" : " null"}
+        </h2>
         <button
           onClick={() => this.props.removePlanet(this.props.id)}
-          className={this.props.delete ? ".shake" : "delete-button"}
+          className="delete-button"
         >
           Delete Planet
         </button>
