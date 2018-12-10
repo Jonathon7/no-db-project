@@ -12,6 +12,22 @@
   letter-spacing: 4px;
 }
 
+.update-button {
+  padding: 4px;
+  border-radius: 7px;
+  background-color: #0d0d0d;
+  color: white;
+}
+
+.update-input {
+  padding: 2px;
+  transition: 0.7s;
+}
+
+.update-input:focus {
+  padding: 5px;
+}
+
 .list-container:hover {
   padding: 30px;
   border-radius: 50px;
@@ -19,6 +35,11 @@
 
 .shown {
   display: block;
+  display: flex;
+  width: 200px;
+  margin: 0 auto;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .hidden {

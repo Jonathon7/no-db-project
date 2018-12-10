@@ -22,11 +22,15 @@ class List extends Component {
         <h1 onClick={this.handleToggle}>{this.props.name}</h1>
         <div className={this.state.update ? "shown" : "hidden"}>
           <input
+            className="update-input"
             type="text"
             value={this.props.newName}
             onChange={e => this.props.handleChange(e.target.value)}
           />
-          <button onClick={() => this.props.updatePlanet(this.props.id)}>
+          <button
+            className="update-button"
+            onClick={() => this.props.updatePlanet(this.props.id)}
+          >
             Submit
           </button>
         </div>
