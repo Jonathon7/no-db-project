@@ -11,7 +11,7 @@ export default class Buttons extends Component {
         <button className="button-list" onClick={this.props.sortByName}>
           Sort A-Z (default)
         </button>
-        <button className="button-list" onClick={this.props.deleteAll}>
+        <button className="delete-planets" onClick={this.props.deleteAll}>
           I Hate Planets!
         </button>
         <button onClick={this.props.sortReverse} className="button-list">

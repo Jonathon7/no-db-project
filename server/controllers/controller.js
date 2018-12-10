@@ -39,9 +39,15 @@ const deleted = (req, res, next) => {
   res.send(facts);
 };
 
+const deleteAll = (req, res, next) => {
+  facts.splice(facts[0], facts.length);
+  res.send(facts);
+};
+
 module.exports = {
   read,
   create,
   deleted,
-  update
+  update,
+  deleteAll
 };

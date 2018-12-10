@@ -9,7 +9,7 @@ const Navigation = props => {
           <h1>exoplanets</h1>
         </li>
         <li>
-          {/*handleAdd TOGGLES add FROM TRUE TO FALSE IN PLANETS'S STATE*/}
+          {/*HANDLEADD TOGGLES ADD FROM TRUE TO FALSE IN PLANETS'S STATE*/}
           <button className="nav-button" onClick={props.handleAdd}>
             Add Planet
           </button>{" "}

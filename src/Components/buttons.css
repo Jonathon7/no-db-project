@@ -21,3 +21,21 @@
   padding: 12px;
   opacity: 1;
 }
+
+.delete-planets {
+  width: 150px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #0d0d0d;
+  color: #57d5fa;
+  opacity: 0.7;
+  transition: 0.5s;
+}
+
+.delete-planets:hover {
+  -webkit-animation: shake 0.8s infinite;
+  -moz-animation: shake 0.8s infinite;
+  -o-animation: shake 0.8s infinite;
+  animation: shake 0.8s infinite;
+  color: rgb(126, 0, 0);
+}

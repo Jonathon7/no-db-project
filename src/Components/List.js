@@ -32,7 +32,7 @@ class List extends Component {
         </div>
 
         <h2>Star: {this.props.star}</h2>
-        <h2>Mass: {this.props.mass} * M_Jup</h2>
+        <h2>Mass: {this.props.mass ? this.props.mass + "M_Jup" : "null"}</h2>
         <h2>
           Orbit Period:
           {this.props.orbital ? this.props.orbital + "Days" : " null"}

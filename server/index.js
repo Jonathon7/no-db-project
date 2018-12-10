@@ -11,6 +11,7 @@ app.use(cors());
 app.get("/api/exoplanets/", controller.read);
 app.post("/api/exoplanets", controller.create);
 app.delete("/api/exoplanets/:id", controller.deleted);
+app.delete("/api/exoplanets", controller.deleteAll);
 app.put("/api/exoplanets/:id", controller.update);
 
 const port = 3002;

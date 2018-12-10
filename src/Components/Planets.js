@@ -8,6 +8,7 @@ import Loading from "./Loading";
 import Buttons from "./Buttons";
 import "react-toastify/dist/ReactToastify.min.css";
 import { ToastContainer, toast } from "../../node_modules/react-toastify";
+import Restore from "./Restore";
 
 export default class Planets extends Component {
   constructor(props) {
@@ -22,7 +23,9 @@ export default class Planets extends Component {
       name: "",
       star: "",
       mass: 0,
-      orbit: 0
+      orbit: 0,
+      restore: [],
+      notify: []
     };
   }
 
@@ -39,6 +42,11 @@ export default class Planets extends Component {
   ////TOAST NOTIFICATION WHEN A PLANET IS ADDED
   notify = () => {
     toast.info("Planet Added!");
+  };
+
+  ////TOAST NOTIFICATION WHEN PLANETS ARE RESTORED
+  restoreNotify = () => {
+    toast.info("Planets Successfully Restored!");
   };
 
   ////ADDS A NEW PLANET TO THE BEGINNING OF THE FACTS ARRAY
@@ -180,12 +188,21 @@ export default class Planets extends Component {
       .delete("http://localhost:3002/api/exoplanets/")
       .then(res => {
         this.setState({
-          facts: res.data
+          facts: res.data,
+          restore: [1]
         });
       })
       .catch(err => {
         console.log(err);
       });
+  };
+  //window.location.reload();
+  restorePlanets = () => {
+    this.componentDidMount();
+    this.setState({
+      restore: [],
+      notify: [1]
+    });
   };
 
   render() {
@@ -215,31 +232,45 @@ export default class Planets extends Component {
         />
       );
     });
+
+    ///NOTIFIES WHEN THE FACTS ARRAY IS FILLED AGAIN AFTER RESTORE BUTTON IS CLICKED
+    if (this.state.notify[0] && this.state.facts[0]) {
+      this.restoreNotify();
+      this.setState({
+        notify: []
+      });
+    }
+
     ////THE PLANET COMPONENT IS RENDERED IN APP.JS
     return (
       <div>
-        <Navigation
-          addPlanet={this.addPlanet}
-          handleAdd={this.handleAdd}
-          add={this.state.add}
-          handleName={this.handleName}
-          handleStar={this.handleStar}
-          handleMass={this.handleMass}
-          handleOrbit={this.handleOrbit}
-          handleNewPlanet={this.handleNewPlanet}
-          ////RESETS INPUTS FOR ADDPLANET FORM
-          name={this.state.name}
-          star={this.state.star}
-          mass={this.state.mass}
-          orbit={this.state.orbit}
-          delete={this.state.delete}
-        />
+        {!this.state.restore[0] ? (
+          <Navigation
+            addPlanet={this.addPlanet}
+            handleAdd={this.handleAdd}
+            add={this.state.add}
+            handleName={this.handleName}
+            handleStar={this.handleStar}
+            handleMass={this.handleMass}
+            handleOrbit={this.handleOrbit}
+            handleNewPlanet={this.handleNewPlanet}
+            ////RESETS INPUTS FOR ADDPLANET FORM
+            name={this.state.name}
+            star={this.state.star}
+            mass={this.state.mass}
+            orbit={this.state.orbit}
+            delete={this.state.delete}
+          />
+        ) : null}
 
         <ToastContainer />
-        <Header
-          title="api.arcsecond.io"
-          subTitle="Unified REST APIs for world-wide astronomy data!"
-        />
+        {!this.state.restore[0] ? (
+          <Header
+            title="api.arcsecond.io"
+            subTitle="Unified REST APIs for world-wide astronomy data!"
+          />
+        ) : null}
+
         {this.state.facts[0] ? (
           <Buttons
             sortByOrbit={this.sortByOrbit}
@@ -249,8 +280,14 @@ export default class Planets extends Component {
             deleteAll={this.deleteAll}
           />
         ) : null}
-        {!this.state.facts[0] ? <Loading /> : null}
-        <div className="planet-container">{dispFacts}</div>
+        {!this.state.facts[0] && !this.state.restore[0] ? <Loading /> : null}
+
+        {this.state.restore[0] && !this.state.facts[0] ? (
+          <Restore restorePlanets={this.restorePlanets} />
+        ) : null}
+        <div className="planet-container">
+          {!this.state.restore[0] ? dispFacts : null}
+        </div>
       </div>
     );
   }

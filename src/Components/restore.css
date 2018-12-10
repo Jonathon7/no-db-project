@@ -1,0 +1,32 @@
+.restore-container {
+  height: 20vh;
+  background-color: #0d0d0d;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transition: 5s;
+  padding: 300px 0px;
+}
+
+.restore-container:hover {
+  opacity: 1;
+}
+
+.restore-button {
+  font-size: 17px;
+  width: 120px;
+  height: 60px;
+  background-color: rgb(90, 226, 90);
+  color: whitesmoke;
+  border-radius: 4px;
+  letter-spacing: 3px;
+  font-family: "raleway";
+  transition: 0.5s;
+}
+
+.restore-button:hover {
+  height: 65px;
+  width: 130px;
+  color: white;
+}
