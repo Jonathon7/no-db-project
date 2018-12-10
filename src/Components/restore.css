@@ -1,12 +1,12 @@
 .restore-container {
-  height: 20vh;
+  height: 100vh;
   background-color: #0d0d0d;
   text-align: center;
   display: flex;
   justify-content: center;
+  align-items: center;
   opacity: 0;
   transition: 5s;
-  padding: 300px 0px;
 }
 
 .restore-container:hover {

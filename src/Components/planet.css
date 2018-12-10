@@ -6,3 +6,7 @@
   color: white;
   background-color: #0d0d0d;
 }
+
+.hide-facts {
+  display: none;
+}

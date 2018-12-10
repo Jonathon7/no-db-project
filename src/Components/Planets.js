@@ -285,8 +285,10 @@ export default class Planets extends Component {
         {this.state.restore[0] && !this.state.facts[0] ? (
           <Restore restorePlanets={this.restorePlanets} />
         ) : null}
-        <div className="planet-container">
-          {!this.state.restore[0] ? dispFacts : null}
+        <div
+          className={!this.state.restore[0] ? "planet-container" : "hide-fact"}
+        >
+          {dispFacts}
         </div>
       </div>
     );
